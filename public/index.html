@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head lang="en" dir="rtl">
+
+    <meta charset="UTF-8">
+    <title>משימות</title>
+
+</head>
+<body>
+
+<script src="js/libs/jquery-1.11.2.min.js"></script>
+<script src="js/libs/handlebars-v1.3.0.js"></script>
+<script src="js/libs/ember.js"></script>
+<script src="js/libs/ember-data.js"></script>
+<link rel="stylesheet" href="js/styles.css">
+<script src="js/application.js"></script>
+<script src="js/router.js"></script>
+<script src="js/models/todo.js"></script>
+<script src="js/controllers/todos_controller.js"></script>
+<script src="js/controllers/todo_controller.js"></script>
+<script src="js/views/edit_todo_view.js"></script>
+
+<script type="text/x-handlebars" data-template-name="todos">
+
+<section id="todoapp">
+<div class="tasktab">
+    <div class="brit">
+        <div class="title">משימות</div>
+        <button class="w3-circle" {{action "createTodo"}}>
+        <label class="plusLabel"> + </label>
+        </button>
+    </div>
+        <ul class="list" id="todo-list">
+  {{#each todo in model itemController="todo"}}
+    <li {{bind-attr class="todo.isCompleted:completed todo.isEditing:editing"}}>
+            {{#if todo.isEditing}}
+       {{edit-todo class="edit" value=todo.title focus-out="acceptChanges"
+                           insert-newline="acceptChanges"}}
+    {{else}}
+           {{input type="checkbox" checked=todo.isCompleted class="toggle"}}
+        <label {{action "editTodo" on="doubleClick"}} {{bind-attr class="todo.isCompleted:crossed"}}>{{todo.title}}</label>
+    {{/if}}
+
+      <label {{action "removeTodo" on="click"}} class='deleteButton'> X </label>
+    </li>
+  {{/each}}
+</ul>
+    <div class="summary">
+        <label> לסיום: {{remaining}}</label>
+        <label> הושלמו: {{done}}</label>
+        <label> סה"כ: {{total}}</label>
+    </div>
+</div>
+</section>
+</script>
+
+
+</body>
+</html>
